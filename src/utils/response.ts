@@ -11,3 +11,14 @@ export const sendSuccess = (
         data,
     });
 };
+
+export const sendError = (
+    res: Response,
+    statusCode: number,
+    error: String
+) =>{
+    return res.status(statusCode).json({
+        success: false,
+        error: error
+    });
+}
