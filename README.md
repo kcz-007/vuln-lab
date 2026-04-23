@@ -16,4 +16,28 @@ In my point, it;s error handler for different kind of error. like 404 page not f
 
 that's all I've learnt about the architecture of this project so far and I'm still learning Typescript & later web frontend & Security vulnerabilities labs.
 
---last update in 2026/4/21, 2:51 a.m.
+
+--first time update at 2026/4/21, 2:51 a.m.
+
+now I've add middlewares of zodValidate and requestLogger
+
+this is how it works(zodValidate, use "zod"):
+define the schema of req.query(name:regex(/^[a-zA-Z]+$/).optional) and a validate function whose param is a schema.then schema.safeParse to result, if !result.success then sendError that the data type of param is wrong.
+
+then (requestLogger, use "winston"):
+firstly define the format of the logs on /utils/logger.ts(level(the lowest level logger would output.),format,transportation),then put it in middleware, which receives req,res and nextfunction then when res.finish(on) then use logger to log on the console(maybe log in the files in the future).
+
+and finally register these two middlewares on app.ts in order.
+
+error that I made and solved :
+1.I may start more than 1 task on server which lead to no reactions when I update and restart the server in console
+solve: task kill all threads and restart server.
+2.zod.object's name is true name and it would not validate id or others if you don't use .strict on your name type(all request would be normal on other query.)
+
+second update at 26-4-23 17:55.
+
+btw the steps updating github 
+in the root category
+git add .
+git commit -m "illustration on this update"
+git push -u origin main

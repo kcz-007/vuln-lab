@@ -8,6 +8,7 @@ const logFormat = printf(({ level, message, timestamp}) => {
 })
 
 export const logger = createLogger({
+    //level decide the lowest level of printed logs
     level: "debug",
     //format decide the log's look like.
     format: combine(
