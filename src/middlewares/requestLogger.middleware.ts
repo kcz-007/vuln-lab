@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { logger } from "../utils/logger";
+import { timeStamp } from "node:console";
 
 export const requestLogger = (
     req: Request,
@@ -10,13 +11,21 @@ export const requestLogger = (
 
     res.on("finish", ()=> {
         const duration = Date.now() - start;
-        if(res.statusCode >= 500){
-             logger.error(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
+        let level = "info";
+        if (res.statusCode >= 500) {
+            level = "error";
         } else if (res.statusCode >= 400){
-             logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
-        } else{
-            logger.info(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
+            level = "warn";
         }
+        req.logger.log(level, {
+            message: "HTTP Request",
+            method: req.method,
+            url: req.originalUrl,
+            status: res.statusCode,
+            duration,
+        })
     });
+
     next();
 }
+

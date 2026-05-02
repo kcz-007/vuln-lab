@@ -3,13 +3,17 @@ import router from './routes';
 import { errorHandler } from './middlewares/error.middlewares';
 import { notFoundHandler } from './middlewares/notFound.middleware';
 import { requestLogger } from './middlewares/requestLogger.middleware';
-import { validate } from './middlewares/zodValidate.middleware'
-
+import { requestId } from './middlewares/requestId';
+import { validate } from './middlewares/zodValidate.middleware';
+import { logContext } from './middlewares/loggerContext.middleware'
 
 const app = express();
 
 app.use(express.json());
+//使用request id，通過id來跟蹤特定客戶端id
+app.use(requestId);
 //使用日志中間件記錄請求，方便攻擊溯源和調試
+app.use(logContext);
 app.use(requestLogger);
 
 app.use('/api', router);

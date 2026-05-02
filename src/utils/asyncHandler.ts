@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction} from "express";
+import { logger } from "./logger";
 
 export const asyncHandler = (
     fn: (req: Request, res:Response, next: NextFunction) => Promise<void>
