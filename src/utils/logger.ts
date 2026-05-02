@@ -30,7 +30,7 @@ const prodFormat = winston.format.combine(
     winston.format.json()
 )
 
-const isProd = config.nodeEnv === "production";
+const isProd = process.env.nodeEnv === "production";
 
 export const logger = winston.createLogger({
     level: "info",

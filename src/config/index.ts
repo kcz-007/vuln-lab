@@ -7,14 +7,19 @@ dotenv.config();
 const parsed = envSchema.safeParse(process.env);
 
 if(!parsed.success) {
-    logger.error({
-        message: "config error",
-        error: parsed.error,
-    })
+    console.error("Config validation error:", parsed.error);
+    process.exit(1);
 };
 
 export const config = {
     port: Number(parsed.data?.PORT) || "3000",
     nodeEnv: parsed.data?.NODE_ENV || "development",
-    databaseUrl: parsed.data?.DATABASE_URL,
+    db: {
+        host: parsed.data?.DB_HOST,
+        port: Number(parsed.data?.DB_PORT),
+        user: parsed.data?.DB_USER,
+        password: parsed.data?.DB_PASSWORD,
+        database: parsed.data?.DB_NAME,
+    }
+   
 }

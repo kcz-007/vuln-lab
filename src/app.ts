@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from 'express';
 import router from './routes';
 import { errorHandler } from './middlewares/error.middlewares';
@@ -6,8 +7,15 @@ import { requestLogger } from './middlewares/requestLogger.middleware';
 import { requestId } from './middlewares/requestId';
 import { validate } from './middlewares/zodValidate.middleware';
 import { logContext } from './middlewares/loggerContext.middleware'
+import cors from "cors";
+
+dotenv.config();
+
 
 const app = express();
+app.use(cors({
+    origin: "http://localhost:5173",
+}));
 
 app.use(express.json());
 //使用request id，通過id來跟蹤特定客戶端id

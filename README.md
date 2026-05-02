@@ -36,6 +36,27 @@ solve: task kill all threads and restart server.
 
 second update at 26-4-23 17:55.
 
+today I've learned about the postgreSQL, it uses sql to CRUD and I add more apis finally and import react.
+added create user, compare password to login, select user info by user id. giving token(1h -> 1d) after login, realize frontend frame.
+
+some errors I made:
+1.had no await before query.
+2.wrong column name on creating database.
+3.use cors incorrectly which leads to wasting time.
+
+in all I've always type the wrong word and lack of reviewing code.
+
+and the very first of logger, errorHandler has been ignorent and I should take it as promotion direction when I finish the basic functions.
+
+and the database's create is like this:
+1.pool, config the connection info.
+2.user.repository, pre write the sql
+3.services, connect the sql and real business, return the result and handle errors. and also encrypt password when users created.
+4.controller, handle the request and handle it with services. also giving tokens to users when login.
+5.router, receiving the request to database.
+
+update on 2026-5-3 1:43 am.
+
 btw the steps updating github 
 in the root category
 git add .
